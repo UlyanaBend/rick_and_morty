@@ -2,7 +2,9 @@ package com.example.rick_and_morty
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.rick_and_morty.model.Character
 import com.example.rick_and_morty.model.CharacterAPI
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val tvModel = findViewById<TextView>(R.id.tvModel)
+        val imgAvatar = findViewById<ImageView>(R.id.ivAvatar)
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://rickandmortyapi.com/api/").client(client)
@@ -36,6 +39,9 @@ class MainActivity : AppCompatActivity() {
             val character = characterAPI.getCharacterById(2)
             runOnUiThread {
                 tvModel.text = character.name
+                Glide.with(this@MainActivity)
+                    .load(character.image)
+                    .into(imgAvatar)
             }
         }
     }

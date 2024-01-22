@@ -44,6 +44,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
     implementation("com.squareup.okhttp3:okhttp:4.7.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

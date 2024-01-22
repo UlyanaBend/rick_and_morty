@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
 import com.example.rick_and_morty.model.CharacterAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +17,22 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class CharactersListFragment : Fragment() {
+
+    private val binding: FragmentCharactersListBinding by lazy {
+        FragmentCharactersListBinding.inflate(layoutInflater)
+    }
+
+    private val adapter: CharacterAdapter by lazy {
+        CharacterAdapter()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -30,9 +40,8 @@ class CharactersListFragment : Fragment() {
             .addInterceptor(interceptor)
             .build()
 
-        val rootView = inflater.inflate(R.layout.fragment_characters_list, container, false)
-        val tvModel = rootView.findViewById<TextView>(R.id.tvModel)
-        val imgAvatar = rootView.findViewById<ImageView>(R.id.ivAvatar)
+        binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvCharList.adapter = adapter
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://rickandmortyapi.com/api/").client(client)
@@ -40,14 +49,12 @@ class CharactersListFragment : Fragment() {
         val characterAPI = retrofit.create(CharacterAPI::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val character = characterAPI.getCharacterById(180)
+            val list = characterAPI.getAllProducts()
             requireActivity().runOnUiThread {
-                tvModel.text = character.name
-                Glide.with(this@CharactersListFragment)
-                    .load(character.image)
-                    .into(imgAvatar)
+                binding.apply {
+                    adapter.submitList(list)
+                }
             }
         }
-        return rootView
     }
 }

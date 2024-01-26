@@ -20,29 +20,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
-
-        val tvModel = findViewById<TextView>(R.id.tvModel)
-        val imgAvatar = findViewById<ImageView>(R.id.ivAvatar)
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/").client(client)
-            .addConverterFactory(GsonConverterFactory.create()).build()
-        val characterAPI = retrofit.create(CharacterAPI::class.java)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val character = characterAPI.getCharacterById(2)
-            runOnUiThread {
-                tvModel.text = character.name
-                Glide.with(this@MainActivity)
-                    .load(character.image)
-                    .into(imgAvatar)
-            }
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, CharactersListFragment())
+                .commit()
         }
     }
 }

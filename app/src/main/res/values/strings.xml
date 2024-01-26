@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">rick_and_morty</string>
+    <string name="char_encyclopedia_en">Characters Encyclopedia</string>
 </resources>

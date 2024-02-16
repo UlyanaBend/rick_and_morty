@@ -21,7 +21,6 @@ class CharactersListFragment : Fragment() {
     private val binding: FragmentCharactersListBinding by lazy {
         FragmentCharactersListBinding.inflate(layoutInflater)
     }
-
     private val adapter: CharacterAdapter by lazy {
         CharacterAdapter()
     }

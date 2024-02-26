@@ -20,7 +20,7 @@ enum class Status {
 }
 
 enum class Gender {
-    Female, Male, Genderless, unknown
+    Female, Male, Genderless, Unknown
 }
 data class Origin (
     val name : String,

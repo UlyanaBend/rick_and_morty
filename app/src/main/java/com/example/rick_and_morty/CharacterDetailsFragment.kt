@@ -1,6 +1,7 @@
 package com.example.rick_and_morty
 
-class CharacterDetailsFragment {
+import androidx.fragment.app.Fragment
 
+class CharacterDetailsFragment: Fragment() {
 
 }

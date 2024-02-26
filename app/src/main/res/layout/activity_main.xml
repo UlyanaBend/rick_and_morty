@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/imageView"
+                android:id="@+id/backIb"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_back"
@@ -46,8 +46,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.43"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toEndOf="@+id/backIb"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
 import com.example.rick_and_morty.model.CharacterAPI
@@ -54,6 +55,24 @@ class CharactersListFragment : Fragment() {
                     adapter.submitList(list)
                 }
             }
+        }
+
+
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            val selectedFragment: Fragment = when (item.itemId) {
+                R.id.menu_main -> {
+                    CharactersListFragment()
+                }
+                R.id.menu_favorite -> {
+                    FavoriteCharactersFragment()
+                }
+                else -> throw IllegalArgumentException("Unknown menu item ID: ${item.itemId}")
+            }
+            parentFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainer, selectedFragment)
+                .addToBackStack(null)
+                .commit()
+            true
         }
     }
 }

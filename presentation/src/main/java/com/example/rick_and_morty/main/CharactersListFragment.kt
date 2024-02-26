@@ -1,4 +1,4 @@
-package com.example.rick_and_morty
+package com.example.rick_and_morty.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rick_and_morty.CharacterAdapter
+import com.example.rick_and_morty.CharacterDetailsFragment
+import com.example.rick_and_morty.CharacterItemClickListener
+import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
+import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
 import com.example.rick_and_morty.model.Character
 import com.example.rick_and_morty.model.CharacterAPI

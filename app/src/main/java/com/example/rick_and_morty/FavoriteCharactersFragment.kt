@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
 import com.example.rick_and_morty.databinding.FragmentFavoriteCharactersBinding
 import com.example.rick_and_morty.model.CharacterAPI
 import kotlinx.coroutines.CoroutineScope

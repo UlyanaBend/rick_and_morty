@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
+import com.example.rick_and_morty.model.Character
 import com.example.rick_and_morty.model.CharacterAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,15 +16,23 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 class CharactersListFragment : Fragment() {
 
     private val binding: FragmentCharactersListBinding by lazy {
         FragmentCharactersListBinding.inflate(layoutInflater)
     }
     private val adapter: CharacterAdapter by lazy {
-        CharacterAdapter()
+        CharacterAdapter(characterList = emptyList(), object : CharacterItemClickListener {
+            override fun onItemClick(character: Character) {
+                val fragment = CharacterDetailsFragment.newInstance(character)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +64,6 @@ class CharactersListFragment : Fragment() {
                 }
             }
         }
-
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {

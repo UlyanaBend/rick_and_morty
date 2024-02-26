@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rick_and_morty.CharacterAdapter
+import com.example.rick_and_morty.adapters.CharacterAdapter
 import com.example.rick_and_morty.CharacterDetailsFragment
 import com.example.rick_and_morty.CharacterItemClickListener
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
@@ -26,6 +26,8 @@ class CharactersListFragment : Fragment() {
     private val binding: FragmentCharactersListBinding by lazy {
         FragmentCharactersListBinding.inflate(layoutInflater)
     }
+
+    //improve
     private val adapter: CharacterAdapter by lazy {
         CharacterAdapter(characterList = emptyList(), object : CharacterItemClickListener {
             override fun onItemClick(character: Character) {

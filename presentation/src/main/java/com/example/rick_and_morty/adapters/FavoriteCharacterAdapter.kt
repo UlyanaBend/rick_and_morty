@@ -1,4 +1,4 @@
-package com.example.rick_and_morty
+package com.example.rick_and_morty.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FavoriteListItemBinding
-import com.example.rick_and_morty.databinding.ListItemBinding
 import com.example.rick_and_morty.model.Character
 
 class FavoriteCharacterAdapter : ListAdapter<Character, FavoriteCharacterAdapter.Holder>(Comparator()) {

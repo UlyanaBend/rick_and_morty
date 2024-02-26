@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rick_and_morty.FavoriteCharacterAdapter
+import com.example.rick_and_morty.adapters.FavoriteCharacterAdapter
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentFavoriteCharactersBinding
 import com.example.rick_and_morty.main.CharactersListFragment

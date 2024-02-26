@@ -7,27 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.rick_and_morty.CharacterItemClickListener
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.ListItemBinding
-import com.example.rick_and_morty.model.Character
+import com.example.domain.model.CharacterDomain
 
-class CharacterAdapter(private val characterList: List<Character>, private val listener: CharacterItemClickListener) : ListAdapter<Character, CharacterAdapter.Holder>(
-    Comparator()
-) {
+class CharacterAdapter : ListAdapter<CharacterDomain, CharacterAdapter.Holder>(Comparator()) {
 
-    class Holder(view: View, private val listener: CharacterItemClickListener, private val characterList: List<Character>) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    class Holder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ListItemBinding.bind(view)
 
-        override fun onClick(v: View) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                val character = characterList[position]
-                listener.onItemClick(character)
-            }
-        }
-
-        fun bind(character: Character) {
+        fun bind(character: CharacterDomain) {
             with(binding) {
                 nameChar.text = character.name
                 Glide.with(root.context)
@@ -35,18 +24,14 @@ class CharacterAdapter(private val characterList: List<Character>, private val l
                     .into(imgChar)
             }
         }
-
-        init {
-            itemView.setOnClickListener(this)
-        }
     }
 
-    class Comparator : DiffUtil.ItemCallback<Character>() {
-        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+    class Comparator : DiffUtil.ItemCallback<CharacterDomain>() {
+        override fun areItemsTheSame(oldItem: CharacterDomain, newItem: CharacterDomain): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+        override fun areContentsTheSame(oldItem: CharacterDomain, newItem: CharacterDomain): Boolean {
             return oldItem == newItem
         }
     }
@@ -54,7 +39,7 @@ class CharacterAdapter(private val characterList: List<Character>, private val l
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item, parent, false)
-        return Holder(view, listener, characterList)
+        return Holder(view)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

@@ -12,14 +12,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        setContentView(binding.root);
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, CharactersListFragment())
-                .commit()
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentContainer, CharactersListFragment())
+                commit()
+            }
         }
+
         binding.backIb.setOnClickListener {
             val fragmentManager = supportFragmentManager
             if (fragmentManager.backStackEntryCount > 0) {

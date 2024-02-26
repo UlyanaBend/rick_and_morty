@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rick_and_morty.databinding.FavoriteListItemBinding
-import com.example.rick_and_morty.databinding.ListItemBinding
 import com.example.rick_and_morty.model.Character
 
 class FavoriteCharacterAdapter : ListAdapter<Character, FavoriteCharacterAdapter.Holder>(Comparator()) {

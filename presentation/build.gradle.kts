@@ -41,11 +41,12 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    val lifecycle_version = "2.7.0"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
     implementation ("com.github.bumptech.glide:glide:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
-    implementation("com.squareup.okhttp3:okhttp:4.7.2")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FavoriteListItemBinding
-import com.example.rick_and_morty.model.Character
+import com.example.domain.model.CharacterDomain
 
-class FavoriteCharacterAdapter : ListAdapter<Character, FavoriteCharacterAdapter.Holder>(Comparator()) {
+class FavoriteCharacterAdapter : ListAdapter<CharacterDomain, FavoriteCharacterAdapter.Holder>(Comparator()) {
 
     class Holder(view: View) : RecyclerView.ViewHolder(view){
         private val binding = FavoriteListItemBinding.bind(view)
 
-        fun bind(character: Character) = with(binding){
+        fun bind(character: CharacterDomain) = with(binding){
             nameChar.text = character.name
             speciesChar.text = character.species
             Glide.with(root.context)
@@ -25,12 +25,12 @@ class FavoriteCharacterAdapter : ListAdapter<Character, FavoriteCharacterAdapter
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<Character>(){
-        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+    class Comparator : DiffUtil.ItemCallback<CharacterDomain>(){
+        override fun areItemsTheSame(oldItem: CharacterDomain, newItem: CharacterDomain): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+        override fun areContentsTheSame(oldItem: CharacterDomain, newItem: CharacterDomain): Boolean {
             return oldItem == newItem
         }
     }

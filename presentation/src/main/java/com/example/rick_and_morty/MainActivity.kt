@@ -3,6 +3,7 @@ package com.example.rick_and_morty
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.rick_and_morty.databinding.ActivityMainBinding
+import com.example.rick_and_morty.main.CharactersListFragment
 
 class MainActivity : AppCompatActivity() {
 

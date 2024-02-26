@@ -1,4 +1,4 @@
-package com.example.rick_and_morty
+package com.example.rick_and_morty.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.rick_and_morty.CharacterItemClickListener
+import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.ListItemBinding
 import com.example.rick_and_morty.model.Character
 
-class CharacterAdapter(private val characterList: List<Character>, private val listener: CharacterItemClickListener) : ListAdapter<Character, CharacterAdapter.Holder>(Comparator()) {
+class CharacterAdapter(private val characterList: List<Character>, private val listener: CharacterItemClickListener) : ListAdapter<Character, CharacterAdapter.Holder>(
+    Comparator()
+) {
 
     class Holder(view: View, private val listener: CharacterItemClickListener, private val characterList: List<Character>) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private val binding = ListItemBinding.bind(view)

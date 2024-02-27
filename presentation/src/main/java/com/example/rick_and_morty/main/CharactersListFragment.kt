@@ -7,17 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rick_and_morty.adapters.CharacterAdapter
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
-import com.example.data.repository.CharacterRepositoryImpl
-import com.example.data.repository.network.RetrofitClient
-import com.example.domain.usecases.GetAllCharactersUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 class CharactersListFragment : Fragment() {
 
     private val binding: FragmentCharactersListBinding by lazy {
@@ -37,34 +36,25 @@ class CharactersListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val getAllCharactersUseCase = GetAllCharactersUseCase()
-        val characterAPI = RetrofitClient.createCharacterApi()
-        val characterRepository = CharacterRepositoryImpl(characterAPI)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val list = characterRepository.getAllCharacters()
-            requireActivity().runOnUiThread {
-                binding.apply {
-                    adapter.submitList(list)
-                }
-            }
-        }
+        val vm: CharactersListVM = ViewModelProvider(this, CharactersListVMFactory(requireContext()))
+            .get(CharactersListVM::class.java)
 
         binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCharList.adapter = adapter
 
-        CoroutineScope(Dispatchers.Main).launch {
+        lifecycleScope.launch {
             try {
-                val list = getAllCharactersUseCase.execute(characterRepository)
-                requireActivity().runOnUiThread {
-                    binding.apply {
-                        adapter.submitList(list)
-                    }
-                }
+                vm.allCharacters()
             } catch (e: Exception) {
                 Log.e(TAG, "Error: ${e.message}")
             }
         }
+
+        vm.allCharVMLive.observe(viewLifecycleOwner, Observer { characters ->
+            characters?.let {
+                adapter.submitList(it)
+            }
+        })
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {

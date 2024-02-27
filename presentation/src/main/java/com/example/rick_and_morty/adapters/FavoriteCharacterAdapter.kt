@@ -7,14 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.domain.model.CharacterDomain
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FavoriteListItemBinding
-<<<<<<< HEAD:app/src/main/java/com/example/rick_and_morty/FavoriteCharacterAdapter.kt
-import com.example.rick_and_morty.databinding.ListItemBinding
-import com.example.rick_and_morty.model.Character
-=======
-import com.example.domain.model.CharacterDomain
->>>>>>> f8b9c9b977c936b54e34e3a652f0fe7398456e23:presentation/src/main/java/com/example/rick_and_morty/adapters/FavoriteCharacterAdapter.kt
 
 class FavoriteCharacterAdapter : ListAdapter<CharacterDomain, FavoriteCharacterAdapter.Holder>(Comparator()) {
 

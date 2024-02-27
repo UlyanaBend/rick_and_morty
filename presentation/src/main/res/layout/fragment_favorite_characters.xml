@@ -42,8 +42,10 @@
         android:text="@string/no_data_to_display_en"
         android:textColor="@color/colorPrimaryDark"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rvCharList" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.42000002"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

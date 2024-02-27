@@ -44,6 +44,7 @@ class CharactersListFragment : Fragment() {
         binding.rvCharList.adapter = adapter
 
         val noDataTextView: TextView = binding.noDataTextView
+        val swipeRefreshLayout = binding.swipeRefreshLayout
 
         lifecycleScope.launch {
             try {
@@ -63,6 +64,20 @@ class CharactersListFragment : Fragment() {
                 adapter.submitList(characters)
             }
         })
+
+        swipeRefreshLayout.setOnRefreshListener {
+            vm.allCharVMLive.value?.let { characters ->
+                if (characters.isNullOrEmpty()) {
+                    noDataTextView.visibility = View.VISIBLE
+                    binding.rvCharList.visibility = View.GONE
+                } else {
+                    noDataTextView.visibility = View.GONE
+                    binding.rvCharList.visibility = View.VISIBLE
+                    adapter.submitList(characters)
+                }
+            }
+            swipeRefreshLayout.isRefreshing = false
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,8 @@ class FavoriteCharactersFragment: Fragment() {
         binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCharList.adapter = adapter
 
+        val noDataFavTextView: TextView = binding.noDataFavTextView
+
         lifecycleScope.launch {
             try {
                 vm.allFavCharacters()
@@ -49,10 +52,16 @@ class FavoriteCharactersFragment: Fragment() {
         }
 
         vm.allFavCharVMLive.observe(viewLifecycleOwner, Observer { characters ->
-            characters?.let {
-                adapter.submitList(it)
+            if (characters.isNullOrEmpty()) {
+                noDataFavTextView.visibility = View.VISIBLE
+                binding.rvCharList.visibility = View.GONE
+            } else {
+                noDataFavTextView.visibility = View.GONE
+                binding.rvCharList.visibility = View.VISIBLE
+                adapter.submitList(characters)
             }
         })
+
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {

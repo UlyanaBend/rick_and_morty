@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.data.repository.CharacterRepositoryImpl
 import com.example.data.repository.network.RetrofitClient
 import com.example.domain.usecases.GetCharDetailsUseCase
-import com.example.rick_and_morty.favorites.FavoriteCharactersVM
 
 class CharacterDetailsVMFactory : ViewModelProvider.Factory {
 

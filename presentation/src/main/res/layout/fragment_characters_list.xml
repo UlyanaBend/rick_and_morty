@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#673AB7">
+    android:background="@color/colorPrimaryDark">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCharList"
@@ -26,13 +25,12 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        android:background="@color/colorPrimary"
-        app:itemTextColor="@color/white">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_nav_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <TextView
         android:id="@+id/noDataTextView"
@@ -42,9 +40,9 @@
         android:gravity="center"
         android:text="@string/no_data_to_display_en"
         android:textColor="@color/white"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rvCharList"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/rvCharList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

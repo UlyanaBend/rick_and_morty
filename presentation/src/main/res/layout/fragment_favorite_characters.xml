@@ -33,4 +33,17 @@
         app:itemTextColor="@color/white">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+    <TextView
+        android:id="@+id/noDataFavTextView"
+        android:layout_width="187dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/no_data_to_display_en"
+        android:textColor="@color/colorPrimaryDark"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvCharList" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

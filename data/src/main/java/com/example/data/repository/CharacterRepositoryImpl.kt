@@ -23,8 +23,10 @@ class CharacterRepositoryImpl (private val characterAPI: CharacterAPI = Retrofit
     }
 
     override suspend fun getFavCharacters(): List<CharacterDomain> {
-        val characterDataList = characterAPI.getAllCharacters()
-        return characterDataList.map { mapToDomain(it) }
+        //val characterDataList = characterAPI.getAllCharacters()
+        //return characterDataList.map { mapToDomain(it) }
+        val emptyList: List<CharacterDomain> = emptyList()
+        return emptyList
     }
 
     private fun mapToDomain(characterData: CharacterData): CharacterDomain {

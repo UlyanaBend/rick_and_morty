@@ -2,6 +2,7 @@ package com.example.rick_and_morty
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.rick_and_morty.databinding.ActivityMainBinding
 import com.example.rick_and_morty.main.CharactersListFragment
 
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContentView(binding.root)
 
         if (savedInstanceState == null) {

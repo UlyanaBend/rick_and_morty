@@ -47,6 +47,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("androidx.fragment:fragment-ktx:1.3.6")

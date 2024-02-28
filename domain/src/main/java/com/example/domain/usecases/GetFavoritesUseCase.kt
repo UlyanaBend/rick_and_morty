@@ -1,10 +1,10 @@
 package com.example.domain.usecases
 
 import com.example.domain.model.CharacterDomain
-import com.example.domain.repository.CharacterRepository
+import com.example.domain.repository.FavCharRepository
 
 class GetFavoritesUseCase {
-    suspend fun execute(characterRepository: CharacterRepository): List<CharacterDomain> {
-        return characterRepository.getFavCharacters()
+    fun execute(favCharRepository: FavCharRepository): List<CharacterDomain> {
+        return favCharRepository.getFavChars()
     }
 }

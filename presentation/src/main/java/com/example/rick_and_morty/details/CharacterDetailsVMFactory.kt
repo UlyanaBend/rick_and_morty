@@ -2,7 +2,7 @@ package com.example.rick_and_morty.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.data.repository.CharacterRepositoryImpl
+import com.example.data.repository.network.CharacterRepositoryImpl
 import com.example.data.repository.network.RetrofitClient
 import com.example.domain.usecases.GetCharDetailsUseCase
 

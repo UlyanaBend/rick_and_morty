@@ -35,7 +35,7 @@ class FavoriteCharactersFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val vm: FavoriteCharactersVM = ViewModelProvider(this, FavoriteCharactersVMFactory())
+        val vm: FavoriteCharactersVM = ViewModelProvider(this, FavoriteCharactersVMFactory(requireContext()))
             .get(FavoriteCharactersVM::class.java)
 
         binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())
@@ -45,7 +45,7 @@ class FavoriteCharactersFragment: Fragment() {
 
         lifecycleScope.launch {
             try {
-                vm.allFavCharacters()
+                vm?.allFavCharacters()
             } catch (e: Exception) {
                 Log.e(ContentValues.TAG, "Error: ${e.message}")
             }
@@ -61,7 +61,6 @@ class FavoriteCharactersFragment: Fragment() {
                 adapter.submitList(characters)
             }
         })
-
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {

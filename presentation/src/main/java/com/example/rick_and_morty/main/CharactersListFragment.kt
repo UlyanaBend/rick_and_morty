@@ -37,7 +37,7 @@ class CharactersListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val vm: CharactersListVM = ViewModelProvider(this, CharactersListVMFactory())
+        val vm: CharactersListVM = ViewModelProvider(this, CharactersListVMFactory(requireContext()))
             .get(CharactersListVM::class.java)
 
         binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())

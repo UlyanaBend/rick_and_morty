@@ -1,35 +1,27 @@
-package com.example.data.repository
+package com.example.data.repository.network
 
 import com.example.data.model.CharacterData
 import com.example.data.model.Gender
 import com.example.data.model.Origin
-import com.example.data.repository.network.CharacterAPI
-import com.example.data.repository.network.RetrofitClient
 import com.example.domain.model.CharacterDomain
-import com.example.domain.model.DomainGender
-import com.example.domain.model.DomainOrigin
+import com.example.domain.model.GenderDomain
+import com.example.domain.model.OriginDomain
 import com.example.domain.repository.CharacterRepository
 
 class CharacterRepositoryImpl (private val characterAPI: CharacterAPI = RetrofitClient.createCharacterApi()): CharacterRepository {
 
     override suspend fun getCharacterById(id: Int): CharacterDomain {
         val characterData = characterAPI.getCharacterById(id)
-        return mapToDomain(characterData)
+        return mapCharacterToDomain(characterData)
     }
 
     override suspend fun getAllCharacters() : List<CharacterDomain> {
         val characterDataList = characterAPI.getAllCharacters()
-        return characterDataList.map { mapToDomain(it) }
+        println(characterDataList)
+        return characterDataList.map { mapCharacterToDomain(it) }
     }
 
-    override suspend fun getFavCharacters(): List<CharacterDomain> {
-        //val characterDataList = characterAPI.getAllCharacters()
-        //return characterDataList.map { mapToDomain(it) }
-        val emptyList: List<CharacterDomain> = emptyList()
-        return emptyList
-    }
-
-    private fun mapToDomain(characterData: CharacterData): CharacterDomain {
+    private fun mapCharacterToDomain(characterData: CharacterData): CharacterDomain {
         return CharacterDomain(
             id = characterData.id,
             name = characterData.name,
@@ -42,18 +34,18 @@ class CharacterRepositoryImpl (private val characterAPI: CharacterAPI = Retrofit
         )
     }
 
-    private fun mapGenderToDomain(gender: Gender?): DomainGender {
+    private fun mapGenderToDomain(gender: Gender?): GenderDomain {
         return when (gender) {
-            Gender.Female -> DomainGender.Female
-            Gender.Male -> DomainGender.Male
-            Gender.Genderless -> DomainGender.Genderless
-            Gender.Unknown -> DomainGender.Unknown
-            else -> DomainGender.Unknown
+            Gender.Female -> GenderDomain.Female
+            Gender.Male -> GenderDomain.Male
+            Gender.Genderless -> GenderDomain.Genderless
+            Gender.Unknown -> GenderDomain.Unknown
+            else -> GenderDomain.Unknown
         }
     }
 
-    private fun mapOriginToDomain(origin: Origin): DomainOrigin {
-        return DomainOrigin(
+    private fun mapOriginToDomain(origin: Origin): OriginDomain {
+        return OriginDomain(
             name = origin.name,
             url = origin.url
         )

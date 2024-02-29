@@ -63,15 +63,18 @@ class FavoriteCharactersFragment: Fragment() {
         })
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            val currentFragment = parentFragmentManager.findFragmentById(R.id.fragmentContainer)
             val selectedFragment: Fragment = when (item.itemId) {
                 R.id.menu_main -> CharactersListFragment()
                 R.id.menu_favorite -> FavoriteCharactersFragment()
                 else -> throw IllegalArgumentException("Unknown menu item ID: ${item.itemId}")
             }
-            parentFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, selectedFragment)
-                .addToBackStack(null)
-                .commit()
+            if (currentFragment == null || currentFragment::class != selectedFragment::class){
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainer, selectedFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
             true
         }
     }

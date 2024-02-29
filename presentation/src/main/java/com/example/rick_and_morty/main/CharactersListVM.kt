@@ -30,11 +30,11 @@ class CharactersListVM(
         allCharVMLiveMutable.postValue(characters)
     }
 
-    suspend fun addToFavorites(){
-        addToFavoritesUseCase.execute(favCharRepository)
+    suspend fun addToFavorites(id:Int){
+        addToFavoritesUseCase.execute(characterRepository.getCharacterById(id), favCharRepository)
     }
 
-    suspend fun deleteFromFavorites(){
-        deleteFromFavoritesUseCase.execute(favCharRepository)
+    suspend fun deleteFromFavorites(id:Int){
+        deleteFromFavoritesUseCase.execute(characterRepository.getCharacterById(id), favCharRepository)
     }
 }

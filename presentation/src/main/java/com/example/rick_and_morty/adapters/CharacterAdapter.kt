@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.data.model.CharacterData
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.ListItemBinding
 import com.example.domain.model.CharacterDomain
 
 class CharacterAdapter : ListAdapter<CharacterDomain, CharacterAdapter.Holder>(Comparator()) {
 
+    private var onItemClickListener: ((CharacterDomain) -> Unit)? = null
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ListItemBinding.bind(view)
 
@@ -43,6 +45,14 @@ class CharacterAdapter : ListAdapter<CharacterDomain, CharacterAdapter.Holder>(C
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position))
+        val character = getItem(position)
+        holder.bind(character)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(character)
+        }
+    }
+
+    fun setOnItemClickListener(listener: (CharacterDomain) -> Unit) {
+        this.onItemClickListener = listener
     }
 }

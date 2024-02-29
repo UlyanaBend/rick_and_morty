@@ -16,7 +16,9 @@ import com.example.rick_and_morty.adapters.CharacterAdapter
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CharactersListFragment : Fragment() {
 
@@ -49,7 +51,6 @@ class CharactersListFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 vm?.allCharacters()
-                vm.addToFavorites()
             } catch (e: Exception) {
                 Log.e(TAG, "Error: ${e.message}")
             }
@@ -78,6 +79,14 @@ class CharactersListFragment : Fragment() {
                 }
             }
             swipeRefreshLayout.isRefreshing = false
+        }
+
+        adapter.setOnItemClickListener { characterData ->
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    vm.addToFavorites(id = characterData.id)
+                }
+            }
         }
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->

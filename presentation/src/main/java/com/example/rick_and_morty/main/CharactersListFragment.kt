@@ -49,6 +49,7 @@ class CharactersListFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 vm?.allCharacters()
+                vm.addToFavorites()
             } catch (e: Exception) {
                 Log.e(TAG, "Error: ${e.message}")
             }

@@ -12,6 +12,5 @@ data class FavCharDataDB(
     val gender: String,
     val origin: String,
     val image: String,
-    val episode: String,
-    val isLiked: Boolean = false
+    val episode: String
 )

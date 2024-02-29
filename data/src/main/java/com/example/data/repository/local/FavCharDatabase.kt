@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.data.model.FavCharDataDB
 
-@Database(entities = [FavCharDataDB::class], version = 1, exportSchema = false)
+@Database(entities = [FavCharDataDB::class], version = 2, exportSchema = false)
 abstract class FavCharDatabase : RoomDatabase() {
 
     abstract fun favCharDao(): FavCharDao
@@ -23,7 +23,7 @@ abstract class FavCharDatabase : RoomDatabase() {
                         context.applicationContext,
                         FavCharDatabase:: class.java,
                         "fav_chars"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return instance
             }

@@ -61,8 +61,7 @@ class FavCharRepositoryImpl (private val favCharDao: FavCharDao): FavCharReposit
             gender = mapGenderDomainToGenderDB(characterDomain.gender),
             origin = mapOriginDomainToFavCharDataDB(characterDomain.origin),
             image = characterDomain.image,
-            episode = mapEpisodeDomainToDataDB(characterDomain.episode),
-            isLiked = false
+            episode = mapEpisodeDomainToDataDB(characterDomain.episode)
         )
     }
 

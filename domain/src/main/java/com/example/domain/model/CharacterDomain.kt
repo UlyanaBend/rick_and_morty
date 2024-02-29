@@ -7,14 +7,26 @@ data class CharacterDomain(
     val gender: GenderDomain,
     val origin: OriginDomain,
     val image: String,
-    val episode: ArrayList<String>,
     val isLiked: Boolean = false
 )
 
 enum class GenderDomain {
-    Female, Male, Genderless, Unknown
+    Female, Male, Genderless, Unknown;
+
+    override fun toString(): String {
+        return when (this) {
+            Male -> "Male"
+            Female -> "Female"
+            Genderless -> "Genderless"
+            else -> "Unknown"
+        }
+    }
 }
 data class OriginDomain (
     val name : String,
     val url : String
-)
+){
+    override fun toString(): String {
+        return "$name"
+    }
+}

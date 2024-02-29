@@ -16,7 +16,10 @@ import com.example.rick_and_morty.adapters.CharacterAdapter
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
+import com.example.rick_and_morty.details.CharacterDetailsFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CharactersListFragment : Fragment() {
 
@@ -58,6 +61,7 @@ class CharactersListFragment : Fragment() {
             if (characters.isNullOrEmpty()) {
                 noDataTextView.visibility = View.VISIBLE
                 binding.rvCharList.visibility = View.GONE
+                println("не информации")
             } else {
                 noDataTextView.visibility = View.GONE
                 binding.rvCharList.visibility = View.VISIBLE
@@ -77,6 +81,30 @@ class CharactersListFragment : Fragment() {
                 }
             }
             swipeRefreshLayout.isRefreshing = false
+        }
+
+        adapter.setOnFavoriteClickListener { characterData ->
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    vm.addToFavorites(characterData.id)
+                }
+            }
+        }
+
+        adapter.setOnItemClickListener { characterData ->
+            val fragmentManager = requireActivity().supportFragmentManager
+            val characterDetailsFragment = CharacterDetailsFragment()
+            val bundle = Bundle()
+            bundle.putInt("characterDataId", characterData.id)
+            characterDetailsFragment.arguments = bundle
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    fragmentManager.beginTransaction()
+                        .add(R.id.fragmentContainer, characterDetailsFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
         }
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->

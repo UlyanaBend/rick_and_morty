@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.model.CharacterDomain
 import com.example.domain.repository.CharacterRepository
+import com.example.domain.repository.FavCharRepository
 import com.example.domain.usecases.GetCharDetailsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,16 +15,36 @@ class CharacterDetailsVM (
     private val characterRepository : CharacterRepository
 ) : ViewModel() {
 
-    private val charDetailsMVLiveMutable: MutableLiveData<CharacterDomain> by lazy {
-        MutableLiveData<CharacterDomain>()
+    private val charImageMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charNameMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charSpeciesMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charGenderMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charOriginMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
     }
 
-    val charDetailsVMLive: LiveData<CharacterDomain> = charDetailsMVLiveMutable
+    val charImageVMLive: LiveData<String> = charImageMVLiveMutable
+    val charNameVMLive: LiveData<String> = charNameMVLiveMutable
+    val charSpeciesVMLive: LiveData<String> = charSpeciesMVLiveMutable
+    val charGenderVMLive: LiveData<String> = charGenderMVLiveMutable
+    val charOriginVMLive: LiveData<String> = charOriginMVLiveMutable
 
-    suspend fun getCharDetails() {
+    suspend fun getCharDetails(id : Int) {
         val character = withContext(Dispatchers.IO) {
-            getCharDetailsUseCase.execute(characterRepository)
+            getCharDetailsUseCase.execute(id, characterRepository)
         }
-        charDetailsMVLiveMutable.postValue(character)
+        charImageMVLiveMutable.postValue(character.image)
+        charNameMVLiveMutable.postValue(character.name)
+        charSpeciesMVLiveMutable.postValue(character.species)
+        charGenderMVLiveMutable.postValue(character.gender.toString())
+        charOriginMVLiveMutable.postValue(character.origin.toString())
     }
 }

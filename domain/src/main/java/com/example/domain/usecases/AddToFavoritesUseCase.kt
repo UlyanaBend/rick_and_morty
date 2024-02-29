@@ -7,16 +7,7 @@ import com.example.domain.repository.FavCharRepository
 import java.util.ArrayList
 
 class AddToFavoritesUseCase {
-    fun execute(favCharRepository: FavCharRepository) {
-//        favCharRepository.upsertFavChar(
-//            CharacterDomain(
-//                1,
-//                "Ulyana",
-//                "char",
-//                GenderDomain.Female,
-//                OriginDomain("Belarusdcdcd","csvdfvdf"),
-//                "dfsvsfvfv",
-//                arrayListOf("dscvdsfvdfv","svdfvdfvdfv","fvdfvfvvf"),
-//                false))
+    suspend fun execute(characterDomain: CharacterDomain, favCharRepository: FavCharRepository) {
+        favCharRepository.upsertFavChar(characterDomain)
     }
 }

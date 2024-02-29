@@ -7,21 +7,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.data.model.CharacterData
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.ListItemBinding
 import com.example.domain.model.CharacterDomain
 
 class CharacterAdapter : ListAdapter<CharacterDomain, CharacterAdapter.Holder>(Comparator()) {
 
-    class Holder(view: View) : RecyclerView.ViewHolder(view) {
+    private var onItemClickListener: ((CharacterDomain) -> Unit)? = null
+    private var onFavoriteClickListener: ((CharacterDomain) -> Unit)? = null
+    class Holder(view: View, private val onFavoriteClickListener: ((CharacterDomain) -> Unit)?) : RecyclerView.ViewHolder(view) {
         private val binding = ListItemBinding.bind(view)
-
         fun bind(character: CharacterDomain) {
             with(binding) {
                 nameChar.text = character.name
                 Glide.with(root.context)
                     .load(character.image)
                     .into(imgChar)
+                ibFav.setOnClickListener {
+                    onFavoriteClickListener?.invoke(character)
+                }
             }
         }
     }
@@ -39,10 +44,22 @@ class CharacterAdapter : ListAdapter<CharacterDomain, CharacterAdapter.Holder>(C
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item, parent, false)
-        return Holder(view)
+        return Holder(view, onFavoriteClickListener)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position))
+        val character = getItem(position)
+        holder.bind(character)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(character)
+        }
+    }
+
+    fun setOnItemClickListener(listener: (CharacterDomain) -> Unit) {
+        this.onItemClickListener = listener
+    }
+
+    fun setOnFavoriteClickListener(listener: (CharacterDomain) -> Unit){
+        this.onFavoriteClickListener = listener
     }
 }

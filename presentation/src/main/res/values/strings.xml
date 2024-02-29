@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">rick_and_morty</string>
+    <string name="app_name">Rick and Morty Encyclopedia</string>
     <string name="char_encyclopedia_en">Characters Encyclopedia</string>
     <string name="fav_en">Favorites</string>
     <string name="main_en">Main</string>

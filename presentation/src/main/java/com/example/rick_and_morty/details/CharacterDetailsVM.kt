@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.model.CharacterDomain
 import com.example.domain.repository.CharacterRepository
+import com.example.domain.repository.FavCharRepository
 import com.example.domain.usecases.GetCharDetailsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,16 +30,12 @@ class CharacterDetailsVM (
     private val charOriginMVLiveMutable: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    private val charEpisodeMVLiveMutable: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
 
     val charImageVMLive: LiveData<String> = charImageMVLiveMutable
     val charNameVMLive: LiveData<String> = charNameMVLiveMutable
     val charSpeciesVMLive: LiveData<String> = charSpeciesMVLiveMutable
     val charGenderVMLive: LiveData<String> = charGenderMVLiveMutable
     val charOriginVMLive: LiveData<String> = charOriginMVLiveMutable
-    val charEpisodeVMLive: LiveData<String> = charEpisodeMVLiveMutable
 
     suspend fun getCharDetails(id : Int) {
         val character = withContext(Dispatchers.IO) {
@@ -47,8 +44,7 @@ class CharacterDetailsVM (
         charImageMVLiveMutable.postValue(character.image)
         charNameMVLiveMutable.postValue(character.name)
         charSpeciesMVLiveMutable.postValue(character.species)
-        charGenderMVLiveMutable.postValue("Gender")
-        charOriginMVLiveMutable.postValue("Origin")
-        charEpisodeMVLiveMutable.postValue("Episode")
+        charGenderMVLiveMutable.postValue(character.gender.toString())
+        charOriginMVLiveMutable.postValue(character.origin.toString())
     }
 }

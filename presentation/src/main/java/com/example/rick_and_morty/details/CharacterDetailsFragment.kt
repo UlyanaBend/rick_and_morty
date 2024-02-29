@@ -53,9 +53,6 @@ class CharacterDetailsFragment: Fragment() {
         vm.charOriginVMLive.observe(viewLifecycleOwner, Observer { charOrigin ->
             binding.originDetails.text = charOrigin
         })
-        vm.charEpisodeVMLive.observe(viewLifecycleOwner, Observer { charEpisode ->
-            binding.episodeDetails.text = charEpisode
-        })
 
         val args = arguments
         if (args != null) {

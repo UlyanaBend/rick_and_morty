@@ -46,15 +46,6 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/originDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="casual"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-            <TextView
                 android:id="@+id/speciesDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,18 +58,21 @@
                 android:id="@+id/genderDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:fontFamily="casual"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/episodeDetails"
+                android:id="@+id/originDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="casual"
+                android:gravity="center|center_horizontal"
+                android:paddingTop="5dp"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

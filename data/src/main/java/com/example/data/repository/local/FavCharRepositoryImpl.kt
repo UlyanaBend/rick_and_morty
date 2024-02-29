@@ -27,7 +27,6 @@ class FavCharRepositoryImpl (private val favCharDao: FavCharDao): FavCharReposit
             gender = mapGenderDataDBToDomain(favCharDataDB.gender),
             origin = mapOriginDataDBToDomain(favCharDataDB.origin),
             image = favCharDataDB.image,
-            episode = mapEpisodeDataDBToDomain(favCharDataDB.episode),
             isLiked = false
         )
     }
@@ -49,10 +48,6 @@ class FavCharRepositoryImpl (private val favCharDao: FavCharDao): FavCharReposit
         return OriginDomain(name, url)
     }
 
-    private fun mapEpisodeDataDBToDomain(episodeDataDB: String): ArrayList<String> {
-        return ArrayList(episodeDataDB.split(","))
-    }
-
     private fun mapCharacterDomainToFavCharDataDB(characterDomain: CharacterDomain): FavCharDataDB {
         return FavCharDataDB (
             id = characterDomain.id,
@@ -60,8 +55,7 @@ class FavCharRepositoryImpl (private val favCharDao: FavCharDao): FavCharReposit
             species = characterDomain.species,
             gender = mapGenderDomainToGenderDB(characterDomain.gender),
             origin = mapOriginDomainToFavCharDataDB(characterDomain.origin),
-            image = characterDomain.image,
-            episode = mapEpisodeDomainToDataDB(characterDomain.episode)
+            image = characterDomain.image
         )
     }
 
@@ -76,9 +70,5 @@ class FavCharRepositoryImpl (private val favCharDao: FavCharDao): FavCharReposit
 
     private fun mapOriginDomainToFavCharDataDB(originDomain: OriginDomain): String {
         return "${originDomain.name}|${originDomain.url}"
-    }
-
-    private fun mapEpisodeDomainToDataDB(episodeDomain: ArrayList<String>): String {
-        return episodeDomain.joinToString(",")
     }
 }

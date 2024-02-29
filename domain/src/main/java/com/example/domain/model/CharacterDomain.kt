@@ -7,7 +7,6 @@ data class CharacterDomain(
     val gender: GenderDomain,
     val origin: OriginDomain,
     val image: String,
-    val episode: ArrayList<String>,
     val isLiked: Boolean = false
 )
 

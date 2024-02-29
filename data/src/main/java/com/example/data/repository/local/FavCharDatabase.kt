@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.data.model.FavCharDataDB
 
-@Database(entities = [FavCharDataDB::class], version = 2, exportSchema = false)
+@Database(entities = [FavCharDataDB::class], version = 3, exportSchema = false)
 abstract class FavCharDatabase : RoomDatabase() {
 
     abstract fun favCharDao(): FavCharDao

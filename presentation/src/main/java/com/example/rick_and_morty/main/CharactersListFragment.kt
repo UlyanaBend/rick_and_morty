@@ -16,6 +16,7 @@ import com.example.rick_and_morty.adapters.CharacterAdapter
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
+import com.example.rick_and_morty.details.CharacterDetailsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -90,9 +91,17 @@ class CharactersListFragment : Fragment() {
         }
 
         adapter.setOnItemClickListener { characterData ->
+            val fragmentManager = requireActivity().supportFragmentManager
+            val characterDetailsFragment = CharacterDetailsFragment()
+            val bundle = Bundle()
+            bundle.putInt("characterDataId", characterData.id)
+            characterDetailsFragment.arguments = bundle
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    vm.deleteFromFavorites(characterData.id)
+                    fragmentManager.beginTransaction()
+                        .add(R.id.fragmentContainer, characterDetailsFragment)
+                        .addToBackStack(null)
+                        .commit()
                 }
             }
         }

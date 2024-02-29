@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="409dp"
+        android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -32,6 +32,7 @@
                 android:id="@+id/ivDetails"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="20dp" />
 
             <TextView
@@ -41,17 +42,15 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="casual"
                 android:gravity="center_horizontal|fill"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/statusDetails"
+                android:id="@+id/originDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="casual"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -61,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="casual"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -71,16 +69,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="casual"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/episodesDetails"
+                android:id="@+id/episodeDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="casual"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
         </LinearLayout>

@@ -14,16 +14,41 @@ class CharacterDetailsVM (
     private val characterRepository : CharacterRepository
 ) : ViewModel() {
 
-    private val charDetailsMVLiveMutable: MutableLiveData<CharacterDomain> by lazy {
-        MutableLiveData<CharacterDomain>()
+    private val charImageMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charNameMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charSpeciesMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charGenderMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charOriginMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val charEpisodeMVLiveMutable: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
     }
 
-    val charDetailsVMLive: LiveData<CharacterDomain> = charDetailsMVLiveMutable
+    val charImageVMLive: LiveData<String> = charImageMVLiveMutable
+    val charNameVMLive: LiveData<String> = charNameMVLiveMutable
+    val charSpeciesVMLive: LiveData<String> = charSpeciesMVLiveMutable
+    val charGenderVMLive: LiveData<String> = charGenderMVLiveMutable
+    val charOriginVMLive: LiveData<String> = charOriginMVLiveMutable
+    val charEpisodeVMLive: LiveData<String> = charEpisodeMVLiveMutable
 
-    suspend fun getCharDetails() {
+    suspend fun getCharDetails(id : Int) {
         val character = withContext(Dispatchers.IO) {
-            getCharDetailsUseCase.execute(characterRepository)
+            getCharDetailsUseCase.execute(id, characterRepository)
         }
-        charDetailsMVLiveMutable.postValue(character)
+        charImageMVLiveMutable.postValue(character.image)
+        charNameMVLiveMutable.postValue(character.name)
+        charSpeciesMVLiveMutable.postValue(character.species)
+        charGenderMVLiveMutable.postValue("Gender")
+        charOriginMVLiveMutable.postValue("Origin")
+        charEpisodeMVLiveMutable.postValue("Episode")
     }
 }

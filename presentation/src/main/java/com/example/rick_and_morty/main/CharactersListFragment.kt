@@ -81,10 +81,18 @@ class CharactersListFragment : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
 
+        adapter.setOnFavoriteClickListener { characterData ->
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    vm.addToFavorites(characterData.id)
+                }
+            }
+        }
+
         adapter.setOnItemClickListener { characterData ->
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    vm.addToFavorites(id = characterData.id)
+                    vm.deleteFromFavorites(characterData.id)
                 }
             }
         }

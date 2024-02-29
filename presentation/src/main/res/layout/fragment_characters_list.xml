@@ -45,8 +45,6 @@
         app:menu="@menu/bottom_nav_menu">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-
-
     <TextView
         android:id="@+id/noDataTextView"
         android:layout_width="187dp"

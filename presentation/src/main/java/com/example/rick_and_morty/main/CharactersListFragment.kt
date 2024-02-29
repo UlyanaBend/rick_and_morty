@@ -61,6 +61,7 @@ class CharactersListFragment : Fragment() {
             if (characters.isNullOrEmpty()) {
                 noDataTextView.visibility = View.VISIBLE
                 binding.rvCharList.visibility = View.GONE
+                println("не информации")
             } else {
                 noDataTextView.visibility = View.GONE
                 binding.rvCharList.visibility = View.VISIBLE

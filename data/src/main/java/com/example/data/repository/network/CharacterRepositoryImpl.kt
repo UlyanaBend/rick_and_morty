@@ -16,9 +16,12 @@ class CharacterRepositoryImpl (private val characterAPI: CharacterAPI = Retrofit
     }
 
     override suspend fun getAllCharacters() : List<CharacterDomain> {
-        val characterDataList = characterAPI.getAllCharacters()
-        println(characterDataList)
-        return characterDataList.map { mapCharacterToDomain(it) }
+        return try {
+            val characterDataList = characterAPI.getAllCharacters()
+            return characterDataList.map { mapCharacterToDomain(it) }
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
     private fun mapCharacterToDomain(characterData: CharacterData): CharacterDomain {

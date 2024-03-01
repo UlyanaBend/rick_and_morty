@@ -27,6 +27,6 @@ data class OriginDomain (
     val url : String
 ){
     override fun toString(): String {
-        return "$name"
+        return name
     }
 }

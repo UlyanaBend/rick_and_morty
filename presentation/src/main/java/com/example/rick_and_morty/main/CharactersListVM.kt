@@ -8,6 +8,7 @@ import com.example.domain.repository.FavCharRepository
 import com.example.domain.usecases.AddToFavoritesUseCase
 import com.example.domain.usecases.DeleteFromFavoritesUseCase
 import com.example.domain.usecases.GetAllCharactersUseCase
+import com.example.domain.usecases.GetFavoritesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,24 +18,55 @@ class CharactersListVM(
     private val getAllCharactersUseCase: GetAllCharactersUseCase,
     private val addToFavoritesUseCase: AddToFavoritesUseCase,
     private val deleteFromFavoritesUseCase: DeleteFromFavoritesUseCase,
+    private val getFavoritesUseCase: GetFavoritesUseCase
     ) : ViewModel() {
 
-    private val allCharVMLiveMutable: MutableLiveData<List<CharacterDomain>> by lazy {
+    private val currentAllCharsVMLiveMutable: MutableLiveData<List<CharacterDomain>> by lazy {
         MutableLiveData<List<CharacterDomain>>()
     }
-    val allCharVMLive : MutableLiveData<List<CharacterDomain>> = allCharVMLiveMutable
+    val currentAllCharsVMLive : MutableLiveData<List<CharacterDomain>> = currentAllCharsVMLiveMutable
     suspend fun allCharacters() {
         val characters = withContext(Dispatchers.IO) {
-            getAllCharactersUseCase.execute(characterRepository)
+            val allExistChars = getAllCharactersUseCase.execute(characterRepository)
+            val initFavChars = getFavoritesUseCase.execute(favCharRepository)
+            for (initChar in initFavChars) {
+                for (existChar in allExistChars) {
+                    if (initChar.id == existChar.id) {
+                        existChar.isLiked = true
+                        break
+                    }
+                }
+            }
+            return@withContext allExistChars
         }
-        allCharVMLiveMutable.postValue(characters)
+        currentAllCharsVMLiveMutable.postValue(characters)
     }
 
     suspend fun addToFavorites(id:Int){
         addToFavoritesUseCase.execute(characterRepository.getCharacterById(id), favCharRepository)
+        allCharacters()
+        updateCharacterLikedStatus(id,true,currentAllCharsVMLiveMutable)
     }
 
     suspend fun deleteFromFavorites(id:Int){
         deleteFromFavoritesUseCase.execute(characterRepository.getCharacterById(id), favCharRepository)
+        allCharacters()
+        updateCharacterLikedStatus(id,false,currentAllCharsVMLiveMutable)
+    }
+
+    private fun updateCharacterLikedStatus(
+        id: Int,
+        isLiked: Boolean,
+        liveData: MutableLiveData<List<CharacterDomain>>
+    ) {
+        val currentList = liveData.value ?: return
+        val updatedList = currentList.map { character ->
+            if (character.id == id) {
+                character.copy(isLiked = isLiked)
+            } else {
+                character
+            }
+        }
+        liveData.postValue(updatedList)
     }
 }

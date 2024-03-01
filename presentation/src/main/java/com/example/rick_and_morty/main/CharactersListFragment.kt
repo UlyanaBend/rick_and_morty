@@ -79,6 +79,7 @@ class CharactersListFragment : Fragment() {
             vm.currentAllCharsVMLive.value?.let { characters ->
                 if (characters.isNullOrEmpty()) {
                     noDataTextView.visibility = View.VISIBLE
+                    binding.pbCharsListCont.visibility = View.GONE
                     binding.rvCharList.visibility = View.GONE
                 } else {
                     noDataTextView.visibility = View.GONE
@@ -86,6 +87,9 @@ class CharactersListFragment : Fragment() {
                     adapter.submitList(characters)
                 }
             }
+//            noDataTextView.visibility = View.VISIBLE
+//            binding.pbCharsListCont.visibility = View.GONE
+//            binding.rvCharList.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
         }
 

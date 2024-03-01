@@ -7,7 +7,7 @@ data class CharacterDomain(
     val gender: GenderDomain,
     val origin: OriginDomain,
     val image: String,
-    var isLiked: Boolean = false
+    val isLiked: Boolean = false
 )
 
 enum class GenderDomain {

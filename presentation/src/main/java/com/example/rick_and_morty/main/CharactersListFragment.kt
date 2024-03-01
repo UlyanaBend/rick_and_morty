@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -49,6 +51,11 @@ class CharactersListFragment : Fragment() {
         val noDataTextView: TextView = binding.noDataTextView
         val swipeRefreshLayout = binding.swipeRefreshLayout
 
+        val progressBar = binding.pbCharsList
+
+        progressBar.visibility = View.VISIBLE
+        binding.rvCharList.visibility = View.GONE
+
         lifecycleScope.launch {
             try {
                 vm?.allCharacters()
@@ -58,13 +65,14 @@ class CharactersListFragment : Fragment() {
         }
 
         vm.allCharVMLive.observe(viewLifecycleOwner, Observer { characters ->
+            progressBar.visibility = View.GONE
+            binding.rvCharList.visibility = View.VISIBLE
             if (characters.isNullOrEmpty()) {
                 noDataTextView.visibility = View.VISIBLE
+                binding.pbCharsListCont.visibility = View.GONE
                 binding.rvCharList.visibility = View.GONE
-                println("не информации")
             } else {
                 noDataTextView.visibility = View.GONE
-                binding.rvCharList.visibility = View.VISIBLE
                 adapter.submitList(characters)
             }
         })

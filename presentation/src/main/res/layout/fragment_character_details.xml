@@ -6,7 +6,19 @@
     android:layout_height="match_parent"
     android:background="#FAFAFA">
 
+    <ProgressBar
+        android:id="@+id/pbCharsList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="290dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvDetails"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

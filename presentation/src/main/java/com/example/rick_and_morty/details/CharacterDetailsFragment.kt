@@ -34,7 +34,14 @@ class CharacterDetailsFragment: Fragment() {
         val vm: CharacterDetailsVM = ViewModelProvider(this, CharacterDetailsVMFactory())
             .get(CharacterDetailsVM::class.java)
 
+        val progressBar = binding.pbCharsList
+
+        progressBar.visibility = View.VISIBLE
+        binding.cvDetails.visibility = View.GONE
+
         vm.charImageVMLive.observe(viewLifecycleOwner, Observer { charImage ->
+            progressBar.visibility = View.GONE
+            binding.cvDetails.visibility = View.VISIBLE
             with(binding) {
                 Glide.with(requireContext())
                     .load(charImage)

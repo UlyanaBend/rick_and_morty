@@ -46,6 +46,11 @@ class FavoriteCharactersFragment: Fragment() {
 
         val noDataFavTextView: TextView = binding.noDataFavTextView
 
+        val progressBar = binding.pbCharsList
+
+        progressBar.visibility = View.VISIBLE
+        binding.rvCharList.visibility = View.GONE
+
         lifecycleScope.launch {
             try {
                 vm?.allFavCharacters()
@@ -53,6 +58,19 @@ class FavoriteCharactersFragment: Fragment() {
                 Log.e(ContentValues.TAG, "Error: ${e.message}")
             }
         }
+
+        vm.allFavCharVMLive.observe(viewLifecycleOwner, Observer { characters ->
+            progressBar.visibility = View.GONE
+            binding.rvCharList.visibility = View.VISIBLE
+            if (characters.isNullOrEmpty()) {
+                progressBar.visibility = View.GONE
+                noDataFavTextView.visibility = View.VISIBLE
+                binding.rvCharList.visibility = View.GONE
+            } else {
+                noDataFavTextView.visibility = View.GONE
+                adapter.submitList(characters)
+            }
+        })
 
         adapter.setOnItemClickListener { characterData ->
             val fragmentManager = requireActivity().supportFragmentManager
@@ -69,17 +87,6 @@ class FavoriteCharactersFragment: Fragment() {
                 }
             }
         }
-
-        vm.allFavCharVMLive.observe(viewLifecycleOwner, Observer { characters ->
-            if (characters.isNullOrEmpty()) {
-                noDataFavTextView.visibility = View.VISIBLE
-                binding.rvCharList.visibility = View.GONE
-            } else {
-                noDataFavTextView.visibility = View.GONE
-                binding.rvCharList.visibility = View.VISIBLE
-                adapter.submitList(characters)
-            }
-        })
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val currentFragment = parentFragmentManager.findFragmentById(R.id.fragmentContainer)

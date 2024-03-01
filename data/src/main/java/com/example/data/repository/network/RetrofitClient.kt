@@ -9,10 +9,6 @@ object RetrofitClient {
 
     private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
     private val okHttpClient: OkHttpClient by lazy {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -64,7 +62,7 @@ class CharactersListFragment : Fragment() {
             }
         }
 
-        vm.allCharVMLive.observe(viewLifecycleOwner, Observer { characters ->
+        vm.currentAllCharsVMLive.observe(viewLifecycleOwner, Observer { characters ->
             progressBar.visibility = View.GONE
             binding.rvCharList.visibility = View.VISIBLE
             if (characters.isNullOrEmpty()) {
@@ -78,7 +76,7 @@ class CharactersListFragment : Fragment() {
         })
 
         swipeRefreshLayout.setOnRefreshListener {
-            vm.allCharVMLive.value?.let { characters ->
+            vm.currentAllCharsVMLive.value?.let { characters ->
                 if (characters.isNullOrEmpty()) {
                     noDataTextView.visibility = View.VISIBLE
                     binding.rvCharList.visibility = View.GONE
@@ -94,7 +92,8 @@ class CharactersListFragment : Fragment() {
         adapter.setOnFavoriteClickListener { characterData ->
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    vm.addToFavorites(characterData.id)
+                    if (!characterData.isLiked) { vm.addToFavorites(characterData.id) }
+                    else { vm.deleteFromFavorites(characterData.id) }
                 }
             }
         }

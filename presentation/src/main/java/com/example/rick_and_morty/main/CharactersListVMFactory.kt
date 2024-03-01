@@ -10,6 +10,7 @@ import com.example.data.repository.network.RetrofitClient
 import com.example.domain.usecases.AddToFavoritesUseCase
 import com.example.domain.usecases.DeleteFromFavoritesUseCase
 import com.example.domain.usecases.GetAllCharactersUseCase
+import com.example.domain.usecases.GetFavoritesUseCase
 
 class CharactersListVMFactory(private val context: Context) : ViewModelProvider.Factory {
 
@@ -19,7 +20,8 @@ class CharactersListVMFactory(private val context: Context) : ViewModelProvider.
     private val favCharRepository by lazy { FavCharRepositoryImpl(favCharDao) }
     private val getAllCharactersUseCase by lazy { GetAllCharactersUseCase() }
     private val addToFavoritesUseCase by lazy { AddToFavoritesUseCase() }
-    private val deleteFromFavoritesUseCase by lazy { DeleteFromFavoritesUseCase() }
+    private val deleteFromFavoritesUseCase by lazy { DeleteFromFavoritesUseCase()}
+    private val getFavoritesUseCase by lazy { GetFavoritesUseCase() }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return CharactersListVM(
@@ -27,7 +29,8 @@ class CharactersListVMFactory(private val context: Context) : ViewModelProvider.
             favCharRepository,
             getAllCharactersUseCase,
             addToFavoritesUseCase,
-            deleteFromFavoritesUseCase
+            deleteFromFavoritesUseCase,
+            getFavoritesUseCase
             ) as T
     }
 }

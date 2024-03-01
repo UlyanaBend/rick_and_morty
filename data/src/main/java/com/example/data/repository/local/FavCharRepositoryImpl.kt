@@ -26,8 +26,7 @@ class FavCharRepositoryImpl (private val favCharDao: FavCharDao): FavCharReposit
             species = favCharDataDB.species,
             gender = mapGenderDataDBToDomain(favCharDataDB.gender),
             origin = mapOriginDataDBToDomain(favCharDataDB.origin),
-            image = favCharDataDB.image,
-            isLiked = false
+            image = favCharDataDB.image
         )
     }
 

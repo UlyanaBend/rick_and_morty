@@ -31,8 +31,7 @@ class CharacterRepositoryImpl (private val characterAPI: CharacterAPI = Retrofit
             species = characterData.species,
             gender = mapGenderToDomain(characterData.gender),
             origin = mapOriginToDomain(characterData.origin),
-            image = characterData.image,
-            isLiked = false
+            image = characterData.image
         )
     }
 

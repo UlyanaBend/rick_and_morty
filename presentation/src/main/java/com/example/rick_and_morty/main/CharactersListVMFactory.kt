@@ -14,7 +14,7 @@ import com.example.domain.usecases.GetAllCharactersUseCase
 class CharactersListVMFactory(private val context: Context) : ViewModelProvider.Factory {
 
     private val characterAPI by lazy { RetrofitClient.createCharacterApi() }
-    private val favCharDao by lazy { FavCharDatabase.getDatabase(context).favCharDao() }
+    private val favCharDao by lazy { FavCharDatabase.getDatabase(context).favCharDao() } //Room
     private val characterRepository by lazy { CharacterRepositoryImpl(characterAPI) }
     private val favCharRepository by lazy { FavCharRepositoryImpl(favCharDao) }
     private val getAllCharactersUseCase by lazy { GetAllCharactersUseCase() }

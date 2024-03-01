@@ -10,7 +10,7 @@ import com.example.domain.usecases.GetFavoritesUseCase
 class FavoriteCharactersVMFactory(private val context: Context) : ViewModelProvider.Factory {
 
     private val getFavoritesUseCase by lazy { GetFavoritesUseCase() }
-    private val favCharDao by lazy { FavCharDatabase.getDatabase(context).favCharDao() }
+    private val favCharDao by lazy { FavCharDatabase.getDatabase(context).favCharDao() } //Room
     private val favCharRepository by lazy { FavCharRepositoryImpl(favCharDao) }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rick_and_morty.adapters.FavoriteCharacterAdapter
 import com.example.rick_and_morty.R
 import com.example.rick_and_morty.databinding.FragmentFavoriteCharactersBinding
+import com.example.rick_and_morty.details.CharacterDetailsFragment
 import com.example.rick_and_morty.main.CharactersListFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FavoriteCharactersFragment: Fragment() {
 
@@ -48,6 +51,22 @@ class FavoriteCharactersFragment: Fragment() {
                 vm?.allFavCharacters()
             } catch (e: Exception) {
                 Log.e(ContentValues.TAG, "Error: ${e.message}")
+            }
+        }
+
+        adapter.setOnItemClickListener { characterData ->
+            val fragmentManager = requireActivity().supportFragmentManager
+            val characterDetailsFragment = CharacterDetailsFragment()
+            val bundle = Bundle()
+            bundle.putInt("characterDataId", characterData.id)
+            characterDetailsFragment.arguments = bundle
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    fragmentManager.beginTransaction()
+                        .add(R.id.fragmentContainer, characterDetailsFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
 

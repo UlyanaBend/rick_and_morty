@@ -13,6 +13,8 @@ import com.example.rick_and_morty.databinding.FavoriteListItemBinding
 
 class FavoriteCharacterAdapter : ListAdapter<CharacterDomain, FavoriteCharacterAdapter.Holder>(Comparator()) {
 
+    private var onItemClickListener: ((CharacterDomain) -> Unit)? = null
+
     class Holder(view: View) : RecyclerView.ViewHolder(view){
         private val binding = FavoriteListItemBinding.bind(view)
 
@@ -42,6 +44,14 @@ class FavoriteCharacterAdapter : ListAdapter<CharacterDomain, FavoriteCharacterA
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        val character = getItem(position)
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(character)
+        }
+    }
+
+    fun setOnItemClickListener(listener: (CharacterDomain) -> Unit) {
+        this.onItemClickListener = listener
     }
 }

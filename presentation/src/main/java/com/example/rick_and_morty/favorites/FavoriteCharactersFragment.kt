@@ -14,12 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rick_and_morty.adapters.FavoriteCharacterAdapter
 import com.example.rick_and_morty.R
+import com.example.rick_and_morty.app.App
 import com.example.rick_and_morty.databinding.FragmentFavoriteCharactersBinding
 import com.example.rick_and_morty.details.CharacterDetailsFragment
 import com.example.rick_and_morty.main.CharactersListFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class FavoriteCharactersFragment: Fragment() {
 
@@ -29,6 +31,9 @@ class FavoriteCharactersFragment: Fragment() {
     private val adapter: FavoriteCharacterAdapter by lazy {
         FavoriteCharacterAdapter()
     }
+
+    @Inject
+    lateinit var favoriteCharactersVMFactory: FavoriteCharactersVMFactory
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,8 +42,11 @@ class FavoriteCharactersFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val vm: FavoriteCharactersVM = ViewModelProvider(this, FavoriteCharactersVMFactory(requireContext()))
+        (requireActivity().application as App).appComponent.injectFavorites(this)
+
+        val vm: FavoriteCharactersVM = ViewModelProvider(this, favoriteCharactersVMFactory)
             .get(FavoriteCharactersVM::class.java)
 
         binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())

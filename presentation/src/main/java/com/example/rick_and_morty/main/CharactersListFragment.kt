@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rick_and_morty.adapters.CharacterAdapter
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
 import com.example.rick_and_morty.R
+import com.example.rick_and_morty.app.App
 import com.example.rick_and_morty.databinding.FragmentCharactersListBinding
 import com.example.rick_and_morty.details.CharacterDetailsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class CharactersListFragment : Fragment() {
 
@@ -31,6 +33,9 @@ class CharactersListFragment : Fragment() {
         CharacterAdapter ()
     }
 
+    @Inject
+    lateinit var charactersListVMFactory: CharactersListVMFactory
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,8 +44,11 @@ class CharactersListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val vm: CharactersListVM = ViewModelProvider(this, CharactersListVMFactory(requireContext()))
+        (requireActivity().application as App).appComponent.injectMain(this)
+
+        val vm: CharactersListVM = ViewModelProvider(this, charactersListVMFactory)
             .get(CharactersListVM::class.java)
 
         binding.rvCharList.layoutManager = LinearLayoutManager(requireContext())

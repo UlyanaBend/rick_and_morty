@@ -55,6 +55,10 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    implementation("com.google.dagger:dagger:2.51")
+    kapt("com.google.dagger:dagger-compiler:2.51")
+    implementation("javax.inject:javax.inject:1")
+
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.core:core-ktx:1.12.0")

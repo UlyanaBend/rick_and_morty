@@ -1,5 +1,6 @@
 package com.example.rick_and_morty.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.model.CharacterDomain
@@ -24,7 +25,7 @@ class CharactersListVM(
     private val currentAllCharsVMLiveMutable: MutableLiveData<List<CharacterDomain>> by lazy {
         MutableLiveData<List<CharacterDomain>>()
     }
-    val currentAllCharsVMLive : MutableLiveData<List<CharacterDomain>> = currentAllCharsVMLiveMutable
+    val currentAllCharsVMLive : LiveData<List<CharacterDomain>> = currentAllCharsVMLiveMutable
     suspend fun allCharacters() {
         val characters = withContext(Dispatchers.IO) {
             val allExistChars = getAllCharactersUseCase.execute(characterRepository)

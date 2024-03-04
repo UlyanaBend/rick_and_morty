@@ -12,12 +12,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.rick_and_morty.R
+import com.example.rick_and_morty.app.App
 import com.example.rick_and_morty.databinding.FragmentCharacterDetailsBinding
 import com.example.rick_and_morty.favorites.FavoriteCharactersFragment
 import com.example.rick_and_morty.main.CharactersListFragment
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class CharacterDetailsFragment: Fragment() {
+
+    @Inject
+    lateinit var characterDetailsVMFactory: CharacterDetailsVMFactory
 
     private val binding: FragmentCharacterDetailsBinding by lazy {
         FragmentCharacterDetailsBinding.inflate(layoutInflater)
@@ -30,8 +35,11 @@ class CharacterDetailsFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) : Unit {
+        super.onViewCreated(view, savedInstanceState)
 
-        val vm: CharacterDetailsVM = ViewModelProvider(this, CharacterDetailsVMFactory())
+        (requireActivity().application as App).appComponent.injectDetails(this)
+
+        val vm: CharacterDetailsVM = ViewModelProvider(this, characterDetailsVMFactory)
             .get(CharacterDetailsVM::class.java)
 
         val progressBar = binding.pbCharsList

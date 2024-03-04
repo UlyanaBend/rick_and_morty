@@ -1,5 +1,6 @@
 package com.example.rick_and_morty.favorites
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.model.CharacterDomain
@@ -16,7 +17,7 @@ class FavoriteCharactersVM(
         private val allFavCharVMLiveMutable: MutableLiveData<List<CharacterDomain>> by lazy {
             MutableLiveData<List<CharacterDomain>>()
         }
-        val allFavCharVMLive : MutableLiveData<List<CharacterDomain>> = allFavCharVMLiveMutable
+        val allFavCharVMLive : LiveData<List<CharacterDomain>> = allFavCharVMLiveMutable
         suspend fun allFavCharacters() {
             val characters = withContext(Dispatchers.IO) {
                 getFavoritesUseCase.execute(favCharRepository)
